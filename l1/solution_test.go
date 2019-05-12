@@ -1,7 +1,7 @@
 package l1
 
 import (
-	"github.com/d5/tengo/assert"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
