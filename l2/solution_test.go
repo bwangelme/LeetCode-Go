@@ -1,39 +1,38 @@
 package l2
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_addTwoNumbers(t *testing.T) {
-	l1 := numToList(342)
-	l2 := numToList(465)
+	l1 := createList([]int{2, 4, 3})
+	l2 := createList([]int{5, 6, 4})
 
 	res := addTwoNumbers(l1, l2)
+	assert.Equal(t, fmt.Sprint(res), "7 0 8")
+}
 
-	assert.Equal(t, res, numToList(807))
+func Test_addCarryNumber(t *testing.T) {
+	l1 := createList([]int{5})
+	l2 := createList([]int{5})
+
+	res := addTwoNumbers(l1, l2)
+	assert.Equal(t, "0 1", fmt.Sprint(res))
 }
 
 func Test_addTwoLargeNumbers(t *testing.T) {
-	l1 := numToList(1000000000000000000000000000001)
-	l2 := numToList(564)
+	l1 := createList([]int{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1})
+	l2 := createList([]int{5, 6, 4})
 
 	res := addTwoNumbers(l1, l2)
-	assert.Equal(t, res, numToList(6640000000000000000000000000001))
+	assert.Equal(t, fmt.Sprint(res), "6 6 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1")
 }
 
-func Test_numToList(t *testing.T) {
-	l := numToList(342)
+func Test_createList(t *testing.T) {
+	l := createList([]int{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1})
 
-	for _, val := range []int{2, 4, 3} {
-		assert.Equal(t, val, l.Val)
-		l = l.Next
-	}
-}
-
-func Test_listToNum(t *testing.T) {
-	l := numToList(342)
-
-	assert.Equal(t, listToNum(l), uint64(342))
+	assert.Equal(t, "1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1", fmt.Sprint(l))
 }
