@@ -1,8 +1,9 @@
 package l231
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestIsPowerOfTwo(t *testing.T) {

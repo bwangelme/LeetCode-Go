@@ -1,11 +1,16 @@
 package l258
 
-//addDigits 计算 __数根__ 的程序
-// 维基百科链接： https://www.wikiwand.com/en/Digital_root#/Abstract_multiplication_of_digital_roots
+// addDigits 计算 __数根__ 的程序
+// https://www.bwangel.me/2019/04/09/leetcode-258/
 func addDigits(num int) int {
-	if num == 0 {
+	if num <= 0 {
 		return 0
 	} else {
-		return num - 9 * ((num -1) / 9)
+		res := num % 9
+		if res == 0 {
+			return 9
+		} else {
+			return res
+		}
 	}
 }
