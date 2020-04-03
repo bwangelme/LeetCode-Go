@@ -8,8 +8,8 @@ func (i Input) String() string {
 		INVALID:  "INVALID",
 		SPACE:    "SPACE",
 		SIGN:     "SIGN",
-		DIGIT:    "DIGIT",
 		DOT:      "DOT",
+		DIGIT:    "DIGIT",
 		EXPONENT: "EXPONENT",
 	}
 	v, ok := strMap[i]
@@ -19,61 +19,66 @@ func (i Input) String() string {
 	return v
 }
 
+// https://passage-1253400711.cos-website.ap-beijing.myqcloud.com/2020-04-03-041334.png
+// 关于状态机各个状态的说明
 const (
-	s0 State = iota // 初始无输入或只输入了空格
-	s1              // 输入了数字后的状态(这个数字中可能有符号和点)
-	s2              // 前面无数字，只输入了一个点
-	s3              // 前面无数字，只输入了一个符号
-	s4              // 前面包含数字和点
-	s5              // 1或4状态后输入了指数符号 E
-	s6              // 5状态后输入了符号
-	s7              // 5或6状态后输入了数字
-	s8              // 前面有有效输入后，输入了空格
-	sfailed
+	s0 State = iota
+	s1
+	s2
+	_
+	s4
+	s5
+	s6
+	s7
+	s8
+	s9
+	s10
+	sf
 )
 
 const (
 	INVALID Input = iota
 	SPACE
 	SIGN
-	DIGIT
 	DOT
+	DIGIT
 	EXPONENT
 )
 
 var TransTable = map[State]map[Input]State{
 	s0: {
-		SPACE: s0, SIGN: s3, DOT: s2, DIGIT: s1, EXPONENT: sfailed,
+		SPACE: s0, SIGN: s9, DIGIT: s1, DOT: s8, EXPONENT: sf,
 	},
 	s1: {
-		SPACE: s8, SIGN: sfailed, DOT: s4, DIGIT: s1, EXPONENT: s5,
+		SPACE: s4, SIGN: sf, DIGIT: s1, DOT: s2, EXPONENT: s5,
 	},
 	s2: {
-		SPACE: sfailed, SIGN: sfailed, DOT: sfailed, DIGIT: s1, EXPONENT: sfailed,
-	},
-	s3: {
-		SPACE: sfailed, SIGN: sfailed, DOT: s2, DIGIT: s1, EXPONENT: sfailed,
+		SPACE: s4, SIGN: sf, DIGIT: s2, DOT: sf, EXPONENT: s5,
 	},
 	s4: {
-		SPACE: s8, SIGN: sfailed, DOT: sfailed, DIGIT: s4, EXPONENT: s5,
+		SPACE: s4, SIGN: sf, DIGIT: sf, DOT: sf, EXPONENT: sf,
 	},
 	s5: {
-		SPACE: sfailed, SIGN: s6, DOT: sfailed, DIGIT: s7, EXPONENT: sfailed,
+		SPACE: sf, SIGN: s7, DIGIT: s6, DOT: sf, EXPONENT: sf,
 	},
 	s6: {
-		SPACE: sfailed, SIGN: sfailed, DOT: sfailed, DIGIT: s7, EXPONENT: sfailed,
+		SPACE: s4, SIGN: sf, DIGIT: s6, DOT: sf, EXPONENT: sf,
 	},
 	s7: {
-		SPACE: s8, SIGN: sfailed, DOT: sfailed, DIGIT: s7, EXPONENT: sfailed,
+		SPACE: sf, SIGN: sf, DIGIT: s6, DOT: sf, EXPONENT: sf,
 	},
 	s8: {
-		SPACE: s8, SIGN: sfailed, DOT: sfailed, DIGIT: sfailed, EXPONENT: sfailed,
+		SPACE: sf, SIGN: sf, DIGIT: s2, DOT: sf, EXPONENT: sf,
+	},
+	s9: {
+		SPACE: sf, SIGN: sf, DIGIT: s1, DOT: s8, EXPONENT: sf,
 	},
 }
 
 func isNumber(s string) bool {
 	var state = s0
 	var input = INVALID
+	_ = s10
 
 	for _, c := range s {
 		switch {
@@ -85,16 +90,16 @@ func isNumber(s string) bool {
 			input = DIGIT
 		case c == '.':
 			input = DOT
-		case c == 'e' || c == 'E':
+		case c == 'e':
 			input = EXPONENT
 		default:
 			return false
 		}
 		state = TransTable[state][input]
 		//fmt.Println(input, state)
-		if state == sfailed {
+		if state == sf {
 			return false
 		}
 	}
-	return state == s1 || state == s4 || state == s7 || state == s8
+	return state == s1 || state == s2 || state == s4 || state == s6
 }

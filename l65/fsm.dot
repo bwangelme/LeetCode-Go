@@ -3,58 +3,59 @@ digraph fsm {
     START -> S0
 
     S0 -> S0 [label = "SPACE"]
+    S0 -> S9 [label = "SIGN"]
     S0 -> S1 [label = "DIGIT"]
-    S0 -> S2 [label = "DOT"]
-    S0 -> SF [label = "EXPONENT"]
-    S0 -> S3 [label = "SIGN"]
+    S0 -> S8 [label = "DOT"]
+    S0 -> Sf [label = "EXPONENT"]
 
-    S1 -> S8 [label = "SPACE"]
+    S1 -> S4 [label = "SPACE"]
+    S1 -> Sf [label = "SIGN"]
     S1 -> S1 [label = "DIGIT"]
-    S1 -> S4 [label = "DOT"]
+    S1 -> S2 [label = "DOT"]
     S1 -> S5 [label = "EXPONENT"]
-    S1 -> SF [label = "SIGN"]
 
-    S2 -> SF [label = "SPACE"]
-    S2 -> S1 [label = "DIGIT"]
-    S2 -> SF [label = "DOT"]
-    S2 -> SF [label = "EXPONENT"]
-    S2 -> SF [label = "SIGN"]
+    S2 -> S4 [label = "SPACE"]
+    S2 -> Sf [label = "SIGN"]
+    S2 -> S2 [label = "DIGIT"]
+    S2 -> Sf [label = "DOT"]
+    S2 -> S5 [label = "EXPONENT"]
 
-    S3 -> SF [label = "SPACE"]
-    S3 -> S1 [label = "DIGIT"]
-    S3 -> S2 [label = "DOT"]
-    S3 -> SF [label = "EXPONENT"]
-    S3 -> SF [label = "SIGN"]
+    S4 -> S4 [label = "SPACE"]
+    S4 -> Sf [label = "SIGN"]
+    S4 -> Sf [label = "DIGIT"]
+    S4 -> Sf [label = "DOT"]
+    S4 -> Sf [label = "EXPONENT"]
 
-    S4 -> S8 [label = "SPACE"]
-    S4 -> S4 [label = "DIGIT"]
-    S4 -> SF [label = "DOT"]
-    S4 -> S5 [label = "EXPONENT"]
-    S4 -> SF [label = "SIGN"]
+    S5 -> Sf [label = "SPACE"]
+    S5 -> S7 [label = "SIGN"]
+    S5 -> S6 [label = "DIGIT"]
+    S5 -> Sf [label = "DOT"]
+    S5 -> Sf [label = "EXPONENT"]
 
-    S5 -> SF [label = "SPACE"]
-    S5 -> S7 [label = "DIGIT"]
-    S5 -> SF [label = "DOT"]
-    S5 -> SF [label = "EXPONENT"]
-    S5 -> S6 [label = "SIGN"]
+    S6 -> S4 [label = "SPACE"]
+    S6 -> Sf [label = "SIGN"]
+    S6 -> S6 [label = "DIGIT"]
+    S6 -> Sf [label = "DOT"]
+    S6 -> Sf [label = "EXPONENT"]
 
-    S6 -> SF [label = "SPACE"]
-    S6 -> S7 [label = "DIGIT"]
-    S6 -> SF [label = "DOT"]
-    S6 -> SF [label = "EXPONENT"]
-    S6 -> SF [label = "SIGN"]
+    S7 -> Sf [label = "SPACE"]
+    S7 -> Sf [label = "SIGN"]
+    S7 -> S6 [label = "DIGIT"]
+    S7 -> Sf [label = "DOT"]
+    S7 -> Sf [label = "EXPONENT"]
 
-    S7 -> S8 [label = "SPACE"]
-    S7 -> S7 [label = "DIGIT"]
-    S7 -> SF [label = "DOT"]
-    S7 -> SF [label = "EXPONENT"]
-    S7 -> SF [label = "SIGN"]
+    S8 -> Sf [label = "SPACE"]
+    S8 -> Sf [label = "SIGN"]
+    S8 -> S2 [label = "DIGIT"]
+    S8 -> Sf [label = "DOT"]
+    S8 -> Sf [label = "EXPONENT"]
 
-    S8 -> S8 [label = "SPACE"]
-    S8 -> SF [label = "DIGIT"]
-    S8 -> SF [label = "DOT"]
-    S8 -> SF [label = "EXPONENT"]
-    S8 -> SF [label = "SIGN"]
+    S9 -> Sf [label = "SPACE"]
+    S9 -> Sf [label = "SIGN"]
+    S9 -> S1 [label = "DIGIT"]
+    S9 -> S8 [label = "DOT"]
+    S9 -> Sf [label = "EXPONENT"]
+
 
     comment [label=<
         <TABLE ALIGN="LEFT">
@@ -64,47 +65,47 @@ digraph fsm {
             </TR>
             <TR>
                 <TD BORDER="0" BGCOLOR="chartreuse">State1</TD>
-                <TD BORDER="0" ALIGN="LEFT">输入了数字之后的状态</TD>
+                <TD BORDER="0" ALIGN="LEFT">判断后续输入是否是一个含点和E的数字</TD>
             </TR>
             <TR>
-                <TD BORDER="0" BGCOLOR="gold4">State2</TD>
-                <TD BORDER="0" ALIGN="LEFT">前面无数字，只输入了一个点</TD>
-            </TR>
-            <TR>
-                <TD BORDER="0" BGCOLOR="gold4">State3</TD>
-                <TD BORDER="0" ALIGN="LEFT">输入了一个符号</TD>
+                <TD BORDER="0" BGCOLOR="chartreuse">State2</TD>
+                <TD BORDER="0" ALIGN="LEFT">点前有数字，判断后续输入是否是个含E的数字</TD>
             </TR>
             <TR>
                 <TD BORDER="0" BGCOLOR="chartreuse">State4</TD>
-                <TD BORDER="0" ALIGN="LEFT">前面包含数字和点</TD>
+                <TD BORDER="0" ALIGN="LEFT">只接受空格的状态</TD>
             </TR>
             <TR>
                 <TD BORDER="0" BGCOLOR="gold4">State5</TD>
-                <TD BORDER="0" ALIGN="LEFT">1或4状态后输入了E</TD>
+                <TD BORDER="0" ALIGN="LEFT">输入E后，后续只能接受整数(可以带符号)</TD>
             </TR>
             <TR>
-                <TD BORDER="0" BGCOLOR="gold4">State6</TD>
-                <TD BORDER="0" ALIGN="LEFT">5状态后输入了符号</TD>
+                <TD BORDER="0" BGCOLOR="chartreuse">State6</TD>
+                <TD BORDER="0" ALIGN="LEFT">后续输入只接受整数(无符号)</TD>
             </TR>
             <TR>
-                <TD BORDER="0" BGCOLOR="chartreuse">State7</TD>
-                <TD BORDER="0" ALIGN="LEFT">5状态后输入了数字</TD>
+                <TD BORDER="0" BGCOLOR="gold4">State7</TD>
+                <TD BORDER="0" ALIGN="LEFT">E后数字输入了单个符号的状态</TD>
             </TR>
             <TR>
-                <TD BORDER="0" BGCOLOR="chartreuse">State8</TD>
-                <TD BORDER="0" ALIGN="LEFT">前面有有效输入后，输入了空格</TD>
+                <TD BORDER="0" BGCOLOR="gold4">State8</TD>
+                <TD BORDER="0" ALIGN="LEFT">点前无数字，判断后续输入是否是个含E的数字</TD>
+            </TR>
+            <TR>
+                <TD BORDER="0" BGCOLOR="gold4">State9</TD>
+                <TD BORDER="0" ALIGN="LEFT">数字输入单个符号的状态</TD>
             </TR>
         </TABLE>
     >, shape = none ];
 
     S0 [shape = circle, label = "State0" ]
     S1 [shape = doublecircle, label = "State1" fillcolor = "#80FF80" style = filled]
-    S2 [shape = circle, label = "State2" ]
-    S3 [shape = circle, label = "State3" ]
+    S2 [shape = doublecircle, label = "State2" fillcolor = "#80FF80" style = filled]
     S4 [shape = doublecircle, label = "State4" fillcolor = "#80FF80" style = filled]
     S5 [shape = circle, label = "State5" ]
-    S6 [shape = circle, label = "State6" ]
-    S7 [shape = doublecircle, label = "State7" fillcolor = "#80FF80" style = filled]
-    S8 [shape = doublecircle, label = "State8" fillcolor = "#80FF80" style = filled]
-    SF [shape = doublecircle, label = "Failed", fillcolor = "#FF8080", style = filled ]
+    S6 [shape = doublecircle, label = "State6" fillcolor = "#80FF80" style = filled]
+    S7 [shape = circle, label = "State7" ]
+    S8 [shape = circle, label = "State8" ]
+    S9 [shape = circle, label = "State9" ]
+    Sf [shape = doublecircle, label = "Failed", fillcolor = "#FF8080", style = filled ]
 }
