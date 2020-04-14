@@ -17,8 +17,8 @@ func integerBreak(n int) int {
 			num := math.Max(
 				float64(dp[i]),
 				math.Max(
-					float64(j)*float64(dp[i-j]),
-					float64(j)*float64(i-j),
+					float64(i-j)*float64(dp[j]),
+					float64(i-j)*float64(j),
 				),
 			)
 			dp[i] = int(num)
