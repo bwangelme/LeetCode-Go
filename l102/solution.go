@@ -1,7 +1,5 @@
 package l102
 
-var res = make([][]int, 0)
-
 //TreeNode Definition for a binary tree node.
 type TreeNode struct {
 	Val   int
@@ -9,22 +7,22 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func recursiveLevelOrder(node *TreeNode, level int) {
+func recursiveLevelOrder(res *[][]int, node *TreeNode, level int) {
 	if node == nil {
 		return
 	}
 
-	if len(res) < level {
+	if len(*res) < level {
 		item := make([]int, 0)
-		res = append(res, item)
+		*res = append(*res, item)
 	}
 
-	item := res[level-1]
+	item := (*res)[level-1]
 	item = append(item, node.Val)
-	res[level-1] = item
+	(*res)[level-1] = item
 
-	recursiveLevelOrder(node.Left, level+1)
-	recursiveLevelOrder(node.Right, level+1)
+	recursiveLevelOrder(res, node.Left, level+1)
+	recursiveLevelOrder(res, node.Right, level+1)
 }
 
 // 时间复杂度 & 空间复杂度
@@ -34,6 +32,8 @@ func recursiveLevelOrder(node *TreeNode, level int) {
 // 最坏情况下树的深度为 N
 // 最好情况下(满二叉树)树的深度为 log2(N+1)
 func levelOrder(root *TreeNode) [][]int {
-	recursiveLevelOrder(root, 1)
+	var res = make([][]int, 0)
+
+	recursiveLevelOrder(&res, root, 1)
 	return res
 }
