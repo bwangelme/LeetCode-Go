@@ -15,7 +15,6 @@ func TestNumberStr(t *testing.T) {
 		{"+3.", true},
 		{"+.8", true},
 		{".2", true},
-		{".2E5", false},  // 指数只支持 e 形式
 		{".2e5", true},
 		{"46.e3", true},
 		{"46.e-3", true},
@@ -49,6 +48,20 @@ func TestSpecial(t *testing.T) {
 		want      bool
 	}{
 		{"46.e-3", true},
+	} {
+		assert.Equal(t, tt.want, isNumber(tt.numberStr), tt.numberStr)
+	}
+}
+
+//TestNewCase2022
+// 2022-08-28 题目发生了变化, 指数支持 E 和 e
+func TestNewCase2022(t *testing.T) {
+	for _, tt := range []struct {
+		numberStr string
+		want      bool
+	}{
+		{"1E9", true},
+		{".2E5", true},
 	} {
 		assert.Equal(t, tt.want, isNumber(tt.numberStr), tt.numberStr)
 	}

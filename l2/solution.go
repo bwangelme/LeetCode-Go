@@ -55,7 +55,7 @@ func newListNode(Val int, Next *ListNode) *ListNode {
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	var (
 		head, prevNode *ListNode
-		carry, num int
+		carry, num     int
 	)
 
 	for {

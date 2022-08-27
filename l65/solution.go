@@ -90,7 +90,7 @@ func isNumber(s string) bool {
 			input = DIGIT
 		case c == '.':
 			input = DOT
-		case c == 'e':
+		case c == 'e' || c == 'E':
 			input = EXPONENT
 		default:
 			return false
