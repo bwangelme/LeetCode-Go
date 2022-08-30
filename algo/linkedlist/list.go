@@ -27,13 +27,15 @@ func PrintList[T any](head *SingleListNode[T]) string {
 	var current = head
 
 	for {
+		if current == nil {
+			break
+		}
+
 		b.WriteString(fmt.Sprintf("%v", current.Data))
 		if current.Next != nil {
 			b.WriteString(" -> ")
-			current = current.Next
-		} else {
-			break
 		}
+		current = current.Next
 	}
 
 	return b.String()
@@ -41,8 +43,8 @@ func PrintList[T any](head *SingleListNode[T]) string {
 
 func NewList[T any](arr []T) *SingleListNode[T] {
 	var (
-		head    *SingleListNode[T]
-		current = head
+		head    *SingleListNode[T] = nil
+		current                    = head
 	)
 
 	for _, r := range arr {
