@@ -47,12 +47,16 @@ func Test_detectCycle(t *testing.T) {
 		wanted int
 	}{
 		{[]int{3, 2, 0, -4}, 1, 2},
-		//{[]int{1, 2}, 0, true},
-		//{[]int{1}, -1, false},
+		{[]int{1, 2}, 0, 1},
+		{[]int{1}, -1, -1},
 	} {
 		head := NewList(tt.vals, tt.pos)
 		res := detectCycle(head)
 
-		assert.Equal(t, tt.wanted, res.Val)
+		if res == nil {
+			assert.Equal(t, tt.wanted, -1)
+		} else {
+			assert.Equal(t, tt.wanted, res.Val)
+		}
 	}
 }

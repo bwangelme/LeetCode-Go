@@ -118,8 +118,8 @@ func hasCycleO1(head *ListNode) bool {
 	return false
 }
 
-func detectCycle(head *ListNode) *ListNode {
-	// TODO
+// 判断链表中是否有环，并返回 slow 指针
+func getCycleSlow(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
@@ -134,9 +134,43 @@ func detectCycle(head *ListNode) *ListNode {
 		slow = slow.Next
 
 		if fast == slow {
+			// 快慢指针重合
+			// s = nb
+			// f = 2nb
 			return slow
 		}
 	}
 
+	// 链表中没有环，此时 slow == nil
 	return nil
+}
+
+/*
+detectCycle
+
+## 复杂度分析
+
+定义链表的长度为N，还的长度为 M
+
+时间复杂度: 判断链表是否有环，复杂度为 O(N)，pursuer 走了 (N-M) 步追上了 slow，所以时间复杂度为 O(N)
+空间复杂度：一共申请了三个指针，空间复杂度为 O(1)
+*/
+func detectCycle(head *ListNode) *ListNode {
+	var pursuer = head
+
+	var slow = getCycleSlow(head)
+	if slow == nil {
+		return nil
+	}
+
+	// 因为链表中有环，slow 和 pursuer 一定能够相遇
+	for {
+		// 需要先判断 pursuer == slow，因为 slow 可能正好停在环入口
+		if pursuer == slow {
+			return pursuer
+		}
+
+		pursuer = pursuer.Next
+		slow = slow.Next
+	}
 }
