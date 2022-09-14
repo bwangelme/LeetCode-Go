@@ -2,17 +2,17 @@ package queue
 
 //CircularQueue 循环队列
 type CircularQueue[T any] struct {
-	Data []T
+	data []T
 	head int
 	tail int
-	size int
+	cap  int
 }
 
 func NewCircularQueue[T any](capacity int) *CircularQueue[T] {
 	// 有一个节点是哨兵节点，尾部要留一个节点的空间，用来判断列表是否满了
 	return &CircularQueue[T]{
-		Data: make([]T, capacity+1),
-		size: capacity + 1,
+		data: make([]T, capacity+1),
+		cap:  capacity + 1,
 		head: 0,
 		tail: 0,
 	}
@@ -23,8 +23,8 @@ func (q *CircularQueue[T]) Enqueue(data T) bool {
 		return false
 	}
 
-	q.Data[q.tail] = data
-	q.tail = (q.tail + 1) % q.size
+	q.data[q.tail] = data
+	q.tail = (q.tail + 1) % q.cap
 	return true
 }
 
@@ -35,13 +35,13 @@ func (q *CircularQueue[T]) Dequeue() (res T) {
 		return
 	}
 
-	res = q.Data[q.head]
-	q.head = (q.head + 1) % q.size
+	res = q.data[q.head]
+	q.head = (q.head + 1) % q.cap
 	return res
 }
 
 func (q *CircularQueue[T]) IsFull() bool {
-	if (q.tail+1)%q.size == q.head {
+	if (q.tail+1)%q.cap == q.head {
 		return true
 	}
 
@@ -52,6 +52,8 @@ func (q *CircularQueue[T]) IsEmpty() bool {
 	return q.tail == q.head
 }
 
+//Size
+// 返回队列中元素的个数
 func (q *CircularQueue[T]) Size() int {
-	return (q.tail + q.size - q.head) % q.size
+	return (q.tail + q.cap - q.head) % q.cap
 }
