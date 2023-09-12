@@ -7,9 +7,23 @@ import (
 
 //LetterGroup
 /**
+## 题目
+
 对字母进行分组
 
 例如存在 "D a F B c A z" 字符串，需要将小写字母都放在大写字母前面，小写字母/大写字母内部的顺序无所谓
+
+## 思路
+
+和快排的 partition 函数类似，都是逐个判断数组中的元素，然后进行原地交换
+
+从两头对数组中的字符进行判断，如果它所处的位置不对，则和对面进行位置交换
+
+## 复杂度分析
+
+charGroup 从两头对整个数组进行了一次遍历，所以时间复杂度是 O(n)
+
+没有以 n 为单位申请新空间，空间复杂度是 O(1)
 */
 func LetterGroup(chars []byte, n int) {
 	charGroup(chars, n, func(b byte) bool {
