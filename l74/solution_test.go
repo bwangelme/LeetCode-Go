@@ -11,8 +11,8 @@ func Test_searchFirstGtRow(t *testing.T) {
 		{10, 11, 16, 20},
 		{23, 30, 34, 60},
 	}
-	row := searchFirstGtRow(matrix, 3)
-	assert.Equal(t, 1, row)
+	row, _ := searchFirstGteRow(matrix, 3)
+	assert.Equal(t, 0, row)
 }
 
 func Test_searchMatrix(t *testing.T) {
@@ -23,4 +23,9 @@ func Test_searchMatrix(t *testing.T) {
 	}
 	assert.Equal(t, true, searchMatrix(matrix, 3))
 	assert.Equal(t, false, searchMatrix(matrix, 13))
+
+	matrix = [][]int{
+		{1},
+	}
+	assert.Equal(t, true, searchMatrix(matrix, 1))
 }

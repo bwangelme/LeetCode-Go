@@ -18,41 +18,50 @@ binarySearch 在某一行中查找 target，复杂度是 O(logN)
 **/
 
 func searchMatrix(matrix [][]int, target int) bool {
-	firstGtRow := searchFirstGtRow(matrix, target)
-	// 第一个比 target 大的行，是首行或者不存在
-	if firstGtRow == -1 || firstGtRow == 0 {
+	firstGteRow, eq := searchFirstGteRow(matrix, target)
+	if eq {
+		return true
+	}
+
+	// 第一个比 target 大的行，不存在
+	if firstGteRow == -1 {
 		return false
 	}
 
-	targetRow := firstGtRow - 1
+	targetRow := firstGteRow
 	targetIdx := binarySearch(matrix[targetRow], target)
 	return targetIdx != -1
 }
 
 // searchFirstGtRow
-// 查找第一个 row[0] > target 的行
-func searchFirstGtRow(matrix [][]int, target int) int {
+// 查找第一个 row[n] >= target 的行
+//
+// return: 行索引，targetRow[n-1] 是否等于 target
+func searchFirstGteRow(matrix [][]int, target int) (int, bool) {
 	var (
 		m     = len(matrix)
+		n     = len(matrix[0])
 		left  = 0
 		right = m - 1
 	)
 
 	for left <= right {
 		mid := left + ((right - left) >> 1)
-		midRowFirst := matrix[mid][0]
-		if midRowFirst > target {
-			if mid == 0 || matrix[mid-1][0] <= target {
-				return mid
+		midRowN := matrix[mid][n-1]
+		if midRowN > target {
+			if mid == 0 || matrix[mid-1][n-1] < target {
+				return mid, false
 			} else {
 				right = mid - 1
 			}
+		} else if midRowN == target {
+			return mid, true
 		} else {
 			left = mid + 1
 		}
 	}
 
-	return -1
+	return -1, false
 }
 
 // binarySearch
