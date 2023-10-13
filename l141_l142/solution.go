@@ -48,7 +48,6 @@ func NewList(vals []int, pos int) *ListNode {
 
 时间复杂度 O(N)，会循环 N+1 次，遇到第一个重复的节点退出
 空间复杂度 O(N)，申请了一个 map，map 的大小为链表的长度
-
 */
 func hasCycle(head *ListNode) bool {
 	if head == nil {
@@ -91,6 +90,7 @@ func hasCycle(head *ListNode) bool {
 时间复杂度为 O(N)，N 为链表的长度
 
 环中循环执行的步骤取决与快慢在环中的位置差M，(0 <= M < L, L 为环的长度)
+
 	最好为 M == 1，循环 1 次
 	最坏为 M == 0，循环 L 次
 
@@ -150,7 +150,7 @@ detectCycle
 
 ## 复杂度分析
 
-定义链表的长度为N，还的长度为 M
+定义链表的长度为N，环的长度为 M
 
 时间复杂度: 判断链表是否有环，复杂度为 O(N)，pursuer 走了 (N-M) 步追上了 slow，所以时间复杂度为 O(N)
 空间复杂度：一共申请了三个指针，空间复杂度为 O(1)
