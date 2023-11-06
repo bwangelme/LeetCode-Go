@@ -101,9 +101,9 @@ func genTreeTedious(start, end int) []*lt.TreeNode {
 	return res
 }
 
-func generateTreesCache(n int) []*lt.TreeNode {
+func genTreeCache(n int) []*lt.TreeNode {
 	if n == 1 {
-		return []*lt.TreeNode{&lt.TreeNode{Val: 1}}
+		return []*lt.TreeNode{{Val: 1}}
 	}
 	cache := make([][][]*lt.TreeNode, n+1) // cache[i][j]表示数字i到j生成的字数
 	for i := range cache {

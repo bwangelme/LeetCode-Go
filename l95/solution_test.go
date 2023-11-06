@@ -17,3 +17,12 @@ func Test_generateTrees(t *testing.T) {
 	}
 	assert.Fail(t, "Stop")
 }
+
+func Test_genTreeCache(t *testing.T) {
+	res := genTreeCache(3)
+	fmt.Println(len(res))
+	for _, tree := range res {
+		fmt.Println("============")
+		lt.PrintTree(tree, os.Stdout)
+	}
+}
