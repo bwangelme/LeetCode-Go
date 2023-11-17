@@ -10,7 +10,7 @@ import (
 
 func Test_generateTrees(t *testing.T) {
 	res := generateTrees(3)
-	fmt.Println(len(res))
+	assert.Equal(t, 5, len(res))
 	for _, tree := range res {
 		fmt.Println("============")
 		lt.PrintTree(tree, os.Stdout)

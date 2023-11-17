@@ -61,8 +61,8 @@ func genTreeTedious(start, end int) []*lt.TreeNode {
 	var res = make([]*lt.TreeNode, 0)
 
 	for root := start; root <= end; root++ {
-		leftTrees := genTree(start, root-1)
-		rightTrees := genTree(root+1, end)
+		leftTrees := genTreeTedious(start, root-1)
+		rightTrees := genTreeTedious(root+1, end)
 
 		if len(leftTrees) == 0 && len(rightTrees) == 0 {
 			tree := &lt.TreeNode{
