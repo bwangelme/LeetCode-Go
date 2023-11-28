@@ -19,7 +19,7 @@ f(m, n) = f(m-1, n) + f(m, n-1)
 
 ## 复杂度分析
 
-O(m*n)
+时间复杂度和空间复杂度是 O(m * n)
 */
 
 func uniquePaths(m int, n int) int {
