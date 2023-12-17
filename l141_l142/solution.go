@@ -102,24 +102,27 @@ func hasCycleO1(head *ListNode) bool {
 	}
 
 	var (
-		fast = head
 		slow = head
+		fast = slow.Next
 	)
 
-	for fast != nil && fast.Next != nil && slow != nil {
-		fast = fast.Next.Next
-		slow = slow.Next
-
+	for fast != nil && slow != nil {
 		if fast == slow {
 			return true
+		}
+
+		slow = slow.Next
+		fast = fast.Next
+		if fast != nil {
+			fast = fast.Next
 		}
 	}
 
 	return false
 }
 
-// 判断链表中是否有环，并返回 slow 指针
-func getCycleSlow(head *ListNode) *ListNode {
+// 判断链表中是否有环，如果有环的话，返回环中的一个节点，并返回 slow 指针
+func getCycleNode(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
@@ -158,7 +161,7 @@ detectCycle
 func detectCycle(head *ListNode) *ListNode {
 	var pursuer = head
 
-	var slow = getCycleSlow(head)
+	var slow = getCycleNode(head)
 	if slow == nil {
 		return nil
 	}
