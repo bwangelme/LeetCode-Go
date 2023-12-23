@@ -11,6 +11,56 @@ func IntAbs(num int) int {
 	}
 }
 
+func divideV2(dividend int, divisor int) int {
+	if dividend == MinInt && divisor == -1 {
+		return MaxInt
+	}
+
+	negative := 2
+	if dividend > 0 {
+		negative--
+		dividend = -dividend
+	}
+
+	if divisor > 0 {
+		negative--
+		divisor = -divisor
+	}
+
+	res := divideCore(dividend, divisor)
+	if negative == 1 {
+		return -res
+	} else {
+		return res
+	}
+}
+
+/*
+## 解题思路
+
+1. 先用 dividend 逐个减去 divisor (第一层 for 循环)
+2. 除数以2的倍数不断增长，减少第一步减的次数 (第二层 for 循环)
+3. value + value 不能溢出, 判断 value >= hafMinInt
+*/
+func divideCore(dividend int, divisor int) int {
+	res := 0
+	hafMinInt := -(1 << 30)
+
+	for dividend <= divisor {
+		value := divisor
+		quotient := 1
+		for value >= hafMinInt && dividend <= value+value {
+			quotient += quotient
+			value += value
+		}
+
+		res += quotient
+		dividend -= value
+	}
+
+	return res
+}
+
 func divide(dividend int, divisor int) int {
 	if divisor == 0 {
 		panic("divided by zero")
