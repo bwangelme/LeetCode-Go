@@ -1,5 +1,12 @@
 package l318
 
+/*
+N 表示 len(words)
+K 表示 words 中单词的平均长度
+
+时间复杂度 O(NK + N^2)
+空间复杂度 O(N)
+*/
 func maxProduct(words []string) int {
 	var flags = make([]uint32, len(words))
 
