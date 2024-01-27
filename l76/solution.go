@@ -75,7 +75,8 @@ start, end 一起遍历了 s, 时间复杂度是 O(n)
 */
 func minWindow(s string, t string) string {
 	var (
-		countMap = make(map[uint8]uint8)
+		// 注意: t 最大是 10^5, 应该考虑 countMap 的 value 最大能够放下 10^5
+		countMap = make(map[uint8]int)
 
 		start = 0
 		end   = 0
@@ -99,6 +100,7 @@ func minWindow(s string, t string) string {
 	// count 表示在 t 中出现，还没在子串 s[start:end] 中出现的字符的个数
 	// count == 0 时表示我们已经找到了包含 t 中所有字符的子串，此时需要调整 start, 减少子串长度来找最短子串
 	var count = len(countMap)
+
 	for end < len(s) || count == 0 && end == len(s) {
 		if count > 0 {
 			_, ok := countMap[s[end]]
