@@ -75,7 +75,7 @@ start, end 一起遍历了 s, 时间复杂度是 O(n)
 */
 func minWindow(s string, t string) string {
 	var (
-		// 注意: t 最大是 10^5, 应该考虑 countMap 的 value 最大能够放下 10^5
+		// 注意: len(t) 最大是 10^5, 应该考虑 countMap 的 value 最大能够放下 10^5
 		countMap = make(map[uint8]int)
 
 		start = 0
