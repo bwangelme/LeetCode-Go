@@ -19,6 +19,7 @@ func Test_largestRectangleArea(t *testing.T) {
 			4,
 		},
 	} {
-		assert.Equal(t, tt.Wanted, largestRectangleArea(tt.Heights))
+		//assert.Equal(t, tt.Wanted, largestRectangleArea(tt.Heights))
+		assert.Equal(t, tt.Wanted, largestRectangleAreaStack(tt.Heights))
 	}
 }
