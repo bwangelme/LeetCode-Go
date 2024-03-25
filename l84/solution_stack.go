@@ -15,6 +15,14 @@ import "github.com/bwangelme/LeetCode-Go/lt"
 如果栈中只有一个元素，表示这个柱子当前是最矮的，左边没有比它更矮的柱子了，可以使用 i - -1 -1 来计算宽度，这包括了当前栈顶柱子左边的所有柱子
 
 如果遍历完了 heights 数组，栈中依然有元素，表示栈中的柱子比后续的柱子都矮，右边就可以计算它们到数组末尾的索引。
+
+## 复杂度分析
+
+n == len(heights)
+
+每个柱子都只会入栈出栈一次，出栈后计算面积的逻辑也只会执行一次，因此时间复杂度是 O(n)
+
+借用了一个栈作为辅助空间，因此空间复杂度最坏是 O(n)
 */
 func largestRectangleAreaStack(heights []int) int {
 	s := lt.NewStack[int]()
