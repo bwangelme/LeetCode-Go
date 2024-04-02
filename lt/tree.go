@@ -17,7 +17,7 @@ func getTreeHeight(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	return 1 + max(getTreeHeight(root.Left), getTreeHeight(root.Right))
+	return 1 + Max(getTreeHeight(root.Left), getTreeHeight(root.Right))
 }
 
 func writeArray(root *TreeNode, row, column, treeHeight int, resArray [][]string) {
@@ -86,7 +86,7 @@ func PrintTree(root *TreeNode, w io.Writer) {
 	}
 }
 
-func max(a, b int) int {
+func Max(a, b int) int {
 	if a > b {
 		return a
 	}
