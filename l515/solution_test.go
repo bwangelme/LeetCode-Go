@@ -27,4 +27,6 @@ func Test_largestValues(t *testing.T) {
 
 	res := largestValues(root)
 	assert.Equal(t, res, []int{1, 3, 9})
+	res = largestValuesTwoQueue(root)
+	assert.Equal(t, res, []int{1, 3, 9})
 }

@@ -85,10 +85,3 @@ func PrintTree(root *TreeNode, w io.Writer) {
 		fmt.Fprintln(w, res)
 	}
 }
-
-func Max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
