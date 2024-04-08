@@ -21,6 +21,10 @@ func (s *Stack[T]) Push(elem T) bool {
 	return true
 }
 
+func (s *Stack[T]) Empty() bool {
+	return s.Len() == 0
+}
+
 func (s *Stack[T]) Pop() *T {
 	stackLen := len(*s)
 	if stackLen == 0 {
