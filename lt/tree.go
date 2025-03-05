@@ -44,6 +44,37 @@ func writeArray(root *TreeNode, row, column, treeHeight int, resArray [][]string
 	}
 }
 
+// BFSArray2Tree
+// 将广度优先遍历出来的树数组还原成树，nil 表示空节点
+func BFSArray2Tree(arr []interface{}) *TreeNode {
+	if len(arr) == 0 || arr[0] == nil {
+		return nil
+	}
+
+	root := &TreeNode{Val: arr[0].(int)}
+	queue := []*TreeNode{root}
+	i := 1
+
+	for i < len(arr) {
+		node := queue[0]
+		queue = queue[1:]
+
+		if arr[i] != nil {
+			node.Left = &TreeNode{Val: arr[i].(int)}
+			queue = append(queue, node.Left)
+		}
+		i++
+
+		if i < len(arr) && arr[i] != nil {
+			node.Right = &TreeNode{Val: arr[i].(int)}
+			queue = append(queue, node.Right)
+		}
+		i++
+	}
+
+	return root
+}
+
 func PrintTree(root *TreeNode, w io.Writer) {
 	height := getTreeHeight(root)
 	// 总宽度为节点高度 * 2 - 1, 因为还要画树枝符号
