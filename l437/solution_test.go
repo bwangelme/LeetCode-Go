@@ -3,7 +3,6 @@ package l437
 import (
 	"github.com/bwangelme/LeetCode-Go/lt"
 	"github.com/stretchr/testify/assert"
-	"os"
 	"testing"
 )
 
@@ -13,6 +12,5 @@ func Test_pathSum(t *testing.T) {
 	var wanted = 3
 
 	root := lt.BFSArray2Tree(input)
-	lt.PrintTree(root, os.Stdout)
 	assert.Equal(t, pathSum(root, targetSum), wanted)
 }

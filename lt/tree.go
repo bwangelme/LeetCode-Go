@@ -45,7 +45,7 @@ func writeArray(root *TreeNode, row, column, treeHeight int, resArray [][]string
 }
 
 // BFSArray2Tree
-// 将广度优先遍历出来的树数组还原成树，nil 表示空节点
+// 将广度优先遍历出来的数组还原成树，nil 表示空节点
 func BFSArray2Tree(arr []interface{}) *TreeNode {
 	if len(arr) == 0 || arr[0] == nil {
 		return nil
