@@ -13,6 +13,13 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+func (t *TreeNode) String() string {
+	if t == nil {
+		return ""
+	}
+	return fmt.Sprintf("%d", t.Val)
+}
+
 func getTreeHeight(root *TreeNode) int {
 	if root == nil {
 		return 0
