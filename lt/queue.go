@@ -47,7 +47,7 @@ func (q *Queue[T]) String() string {
 
 	var res = strings.Builder{}
 	for i := 0; i < q.Len(); i++ {
-		res.WriteString(fmt.Sprintf("%s ", (*q)[i]))
+		res.WriteString(fmt.Sprintf("%v ", (*q)[i]))
 	}
 
 	return res.String()
