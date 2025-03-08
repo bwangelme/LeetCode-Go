@@ -1,6 +1,8 @@
 package l897
 
-import "github.com/bwangelme/LeetCode-Go/lt"
+import (
+	"github.com/bwangelme/LeetCode-Go/lt"
+)
 
 /*
 ## 题目描述
@@ -27,6 +29,40 @@ root.Right = 右子树head
 func increasingBST(root *lt.TreeNode) *lt.TreeNode {
 	head, _ := flattenTree(root)
 	return head
+}
+
+/*
+## 思路说明
+
+使用栈的辅助，对树进行中序遍历
+*/
+func increasingBSTV2(root *lt.TreeNode) *lt.TreeNode {
+	stack := lt.NewStack[*lt.TreeNode]()
+	var (
+		cur                = root
+		prev  *lt.TreeNode = nil
+		first *lt.TreeNode = nil
+	)
+	for cur != nil || !stack.Empty() {
+		for cur != nil {
+			stack.Push(cur)
+			cur = cur.Left
+		}
+
+		pCur := stack.Pop()
+		cur = *pCur
+		if prev != nil {
+			prev.Right = cur
+		} else {
+			first = cur
+		}
+
+		prev = cur
+		cur.Left = nil
+		cur = cur.Right
+	}
+
+	return first
 }
 
 func flattenTree(root *lt.TreeNode) (head, tail *lt.TreeNode) {
