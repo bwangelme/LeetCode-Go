@@ -22,7 +22,7 @@ abs(nums[i] - nums[j]) <= valueDiff
 
 ## 解题思路
 
-我们将输入的数字放到若干个桶中， getBucketsId 函数
+我们将输入的数字放到若干个桶中， (getBucketsId 函数)
 
 [-valueDiff-1, -1] 为 -1 号桶
 [0, valueDiff] 为 0 号桶
@@ -30,7 +30,7 @@ abs(nums[i] - nums[j]) <= valueDiff
 
 以此类推，每个桶的大小是 valueDiff+1
 
-for 循环遍历数组的每个数 num，下标为 i containsNearbyAlmostDuplicate 函数
+for 循环遍历数组的每个数 num，下标为 i (containsNearbyAlmostDuplicate 函数)
 
 	如果 num 所在的桶中已经有数字了，这两个数字满足差的绝对值 <= valueDiff，那么 return true
 	如果 num 所在桶的前一个桶有数字 numP，满足 num - numP <= valueDiff，那么 return true

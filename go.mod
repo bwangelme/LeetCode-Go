@@ -3,6 +3,7 @@ module github.com/bwangelme/LeetCode-Go
 go 1.20
 
 require (
+	github.com/emirpasic/gods v1.18.1
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.4.0
 )
