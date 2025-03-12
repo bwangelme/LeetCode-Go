@@ -1,7 +1,6 @@
 package l373
 
 import (
-	"fmt"
 	"github.com/bwangelme/LeetCode-Go/lt"
 )
 
@@ -33,7 +32,6 @@ func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
 
 	res := make([][]int, 0)
 	for _, node := range maxHeap.ToArray() {
-		fmt.Println(node)
 		res = append(res, []int{node.Num1, node.Num2})
 	}
 
