@@ -1,25 +1,14 @@
 package l347
 
-import "container/heap"
+import (
+	"container/heap"
+
+	"github.com/bwangelme/LeetCode-Go/lt"
+)
 
 type num2Count struct {
 	Num   int
 	Count int
-}
-
-type num2CountSlice []num2Count
-
-func (n *num2CountSlice) Len() int           { return len(*n) }
-func (n *num2CountSlice) Less(i, j int) bool { return (*n)[i].Count < (*n)[j].Count }
-func (n *num2CountSlice) Swap(i, j int)      { (*n)[i], (*n)[j] = (*n)[j], (*n)[i] }
-func (n *num2CountSlice) Peek() any          { return (*n)[0] }
-func (n *num2CountSlice) Push(x any) {
-	*n = append(*n, x.(num2Count))
-}
-
-func (n *num2CountSlice) Pop() (v any) {
-	*n, v = (*n)[:n.Len()-1], (*n)[n.Len()-1]
-	return v
 }
 
 func topKFrequent(nums []int, k int) []int {
@@ -28,7 +17,9 @@ func topKFrequent(nums []int, k int) []int {
 		v, _ := numToCount[num]
 		numToCount[num] = v + 1
 	}
-	var minHeap = &num2CountSlice{}
+	var minHeap = lt.NewHeap[*num2Count](func(v1 *num2Count, v2 *num2Count) bool {
+		return v1.Count < v2.Count
+	})
 
 	heap.Init(minHeap)
 	for num, count := range numToCount {
@@ -37,18 +28,18 @@ func topKFrequent(nums []int, k int) []int {
 			Count: count,
 		}
 		if minHeap.Len() < k {
-			heap.Push(minHeap, item)
+			minHeap.Offer(&item)
 		} else {
-			top := minHeap.Peek().(num2Count)
+			top := minHeap.Peek()
 			if count > top.Count {
-				heap.Pop(minHeap)
-				heap.Push(minHeap, item)
+				minHeap.Poll()
+				minHeap.Offer(&item)
 			}
 		}
 	}
 
 	var result = make([]int, 0)
-	for _, v := range *minHeap {
+	for _, v := range minHeap.ToArray() {
 		result = append(result, v.Num)
 	}
 

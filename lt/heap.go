@@ -15,6 +15,10 @@ func NewHeap[T any](compareFunc func(v1 T, v2 T) bool) *Heap[T] {
 	return h
 }
 
+func (h *Heap[T]) ToArray() []T {
+	return h.queue
+}
+
 func (h *Heap[T]) Len() int {
 	return len(h.queue)
 }
