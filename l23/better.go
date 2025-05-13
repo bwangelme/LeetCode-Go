@@ -22,6 +22,23 @@ func mergeTwoLists(list1, list2 *ListNode) *ListNode {
 	return dummy.Next
 }
 
+/*
+## 解题思路
+
+使用归并排序的思路，将链表二分地进行排序，然后将两个排序后的链表进行合并
+
+## 复杂度分析
+
+K = 链表的数量
+N = 节点的总数量
+
+栈的递归深度是 O(logK),因此空间复杂度是 O(logK)
+
+- 时间复杂度
+
+一共执行了 O(logK) 层的 mergeTwoLists 函数
+每层执行的时候，都是要遍历 N 个节点，因此时间复杂度是 O(NlogK)
+*/
 func mergeKListsBetter(lists []*ListNode) *ListNode {
 	m := len(lists)
 	if m == 0 { // 注意输入的 lists 可能是空的
@@ -30,7 +47,7 @@ func mergeKListsBetter(lists []*ListNode) *ListNode {
 	if m == 1 { // 无需合并，直接返回
 		return lists[0]
 	}
-	left := mergeKLists(lists[:m/2])  // 合并左半部分
-	right := mergeKLists(lists[m/2:]) // 合并右半部分
-	return mergeTwoLists(left, right) // 最后把左半和右半合并
+	left := mergeKListsBetter(lists[:m/2])  // 合并左半部分
+	right := mergeKListsBetter(lists[m/2:]) // 合并右半部分
+	return mergeTwoLists(left, right)       // 最后把左半和右半合并
 }
