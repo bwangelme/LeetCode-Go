@@ -16,3 +16,6 @@
 /Godeps/
 
 .idea/
+
+# LeetCode problem data
+leetcode_cn_all_problems.json
