@@ -1,1 +1,4 @@
 requests>=2.25.1
+pathlib
+dataclasses
+typing-extensions
